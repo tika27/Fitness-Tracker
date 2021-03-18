@@ -16,7 +16,7 @@
 var path = require("path");
 
 module.exports = function(app) {
-app.get("/states", (req, res) => {
+app.get("/stats", (req, res) => {
     console.log("i have been hit");
     res.sendFile(path.join(__dirname, "../public/stats.html"));
 });

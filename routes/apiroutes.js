@@ -46,14 +46,10 @@
 // module.exports = router;
 
 var db = require("../models");
-const Workout = require("../models").Workout;
+const Workout = require("../models/workout.js");
 
 module.exports = function(app) {
-  app.get("/api/images", function(req, res) {
-    db.Image.find({}).then(function(dbImages) {
-      res.json(dbImages);
-    });
-  });
+
 
   app.get("/api/workouts", (req, res) =>{
         Workout.find()
@@ -96,12 +92,5 @@ module.exports = function(app) {
         
         });
 
-  app.put("/api/images/:id", function(req, res) {
-    db.Image.updateOne(
-      { _id: req.params.id },
-      { rating: req.body.rating }
-    ).then(function(dbImage) {
-      res.json(dbImage);
-    });
-  });
+
 };
