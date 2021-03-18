@@ -25,4 +25,8 @@ app.get("/states", (req, res) => {
     console.log("i have been hit");
     res.sendFile(path.join(__dirname, "../public/exercise.html"));
 });
+app.get("/", (req, res) => {
+    console.log("i have been hit");
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 };
