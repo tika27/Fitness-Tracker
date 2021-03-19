@@ -1,45 +1,87 @@
 // const router = require("express").Router();
-// // const db = require("../models");
-// const Workout = require("../models").Workout;
+// const Workout = require("../models/Workout");
 
 // router.get("/api/workouts", (req, res) =>{
-//     Workout.find()
-//         .then(workouts => res.json(workouts))
-//         .catch(err => res.json(err));
+//     Workout.aggregate([
+//         {
+//             $addFields: {
+//                 totalDuration: {
+//                     $sum: "$exercises.duration"
+//                 }
+//             }
+//         }
+//     ])
+//         .then(dbWorkout => {
+//             res.json(dbWorkout)
+//         })
+//         .catch(err => {
+//             res.status(400).json(err)
+//         })
 
 // });
 
-// router.put("/api/workouts/:id", (req, res) => {
+// router.put("/api/workouts/:id", ({ body, params}, res) => {
 //     Workout.findByIdAndUpdate(
-//         req.params.id,
+//         params.id,
 //         { $push: { exercises: req.body } },
-//         { new: true }
+//         { new: true, runValidators: true }
 //     )
-//         .then(workout => res.json(workout))
-//         .catch(err => res.json(err));
-//     });
-
-// router.post("/api/workouts", (req, res) => {
-//         Workout.create({
-//             day: Date.now()
+//         .then(dbWorkout => {
+//             res.json(workout)
 //         })
 
-//         .then(newWorkout => {
-//             console.log("o am the created workout: ", newWorkout);
-//         })
-//         .catch(err => res.json(err));
+//         .catch(err => {
+//             res.json(err)
+//         });
 //     });
+
+// router.post("/api/workouts", ( {body} , res) => {
+//         Workout.create({})
+//         .then(dbWorkout => {
+//             res.json(dbWorkout)
+//         })
+//             .catch(err => {
+//                 res.status(400).json(err)
+//             })
+            
+// })
+
+//     //     .then(newWorkout => {
+//     //         console.log("o am the created workout: ", newWorkout);
+//     //     })
+//     //     .catch(err => res.json(err));
+//     // });
     
     
 // router.get("/api/workouts/range", (req, res) => {
-//     Workout.find({}) 
-//     .then(workouts => {
-//         res.json(workouts);
+//     Workout.aggregate([
+//         {
+//             $addFields:{
+//                 totalDuration: {
+//                     $sum: "$exercises.duration"
+//                 }
+//             }
+//         }
+//     ]) 
+//     .sort({_id: -1}).limit(7)
+//     .then(dbWorkout => {
+//         res.json(dbWorkout);
+
 //     })
-//     .catch(err => res.json(err));
+//     .catch(err => {
+//         res.status(400).json(err)
+
+//     })
 // });
 
-// router.delete("/api/workouts", (req, res) =>{
+// router.delete("/api/workouts", ({body}, res) =>{
+//     Workout.findByIdAndDelete(body.id)
+//     .then(() => {
+//         res.json(true)
+//     })
+//     .catch(err =>{
+//         res.status(400).json(err)
+//     })
 
 // });
 
